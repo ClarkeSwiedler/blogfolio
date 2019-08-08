@@ -4,7 +4,7 @@ module.exports = {
   siteMetadata: {
     title: 'Clarke Swiedler',
     description: 'Instructions, tutorials, and memos',
-    siteUrl: 'http://mendelrewards.com',
+    siteUrl: 'http://ClarkeSwiedler.github.io',
     author: {
       name: 'Clarke Swiedler',
       email: 'Clarke@swiedler.com',
@@ -51,14 +51,14 @@ module.exports = {
     {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
-        siteUrl: `https://jeffrafter.com`,
+        siteUrl: `https://ClarkeSwiedler.github.io`,
       },
     },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Jeff Rafter`,
-        short_name: `jeffrafter.com`,
+        name: `Clarke Swiedler`,
+        short_name: `ClarkeSwiedler.github.io`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#663399`,
