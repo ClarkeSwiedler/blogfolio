@@ -49,8 +49,11 @@ figure {
 }
 `
 
-// These style are based on https://edwardtufte.github.io/tufte-css/
-const styles = () => `
+export const GlobalStyle = createGlobalStyle`
+
+@import url('https://fonts.googleapis.com/css?family=Lexend+Deca|Lora|Fira+Code&display=swap');
+
+${reset()}
 html {
   font-size: 15px;
 }
@@ -60,13 +63,14 @@ body {
   margin-left: auto;
   margin-right: auto;
   padding-left: 12.5%;
-  font-family: Palatino, 'Palatino Linotype', 'Palatino LT STD', 'Book Antiqua', Georgia, serif;
-  background-color: white;
-  color: #111;
+  font-family: Lora, Georgia, serif;
+  background-color: #333;
+  color: #DDD;
   max-width: 1400px;
 }
 
 h1 {
+  font-family: 'Lexand Deca', Helvetica, Arial, sans-serif;
   font-weight: 400;
   margin-top: 4rem;
   margin-bottom: 1.5rem;
@@ -75,7 +79,7 @@ h1 {
 }
 
 h2 {
-  font-style: italic;
+  font-family: 'Lexand Deca', Helvetica, Arial, sans-serif;
   font-weight: 400;
   margin-top: 2.1rem;
   margin-bottom: 1.4rem;
@@ -84,7 +88,7 @@ h2 {
 }
 
 h3 {
-  font-style: italic;
+  font-family: 'Lexand Deca', Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 1.7rem;
   margin-top: 2rem;
@@ -188,6 +192,10 @@ figure.fullwidth figcaption {
 a:link,
 a:visited {
   color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 
 img {
@@ -205,7 +213,7 @@ div.table-wrapper {
 }
 
 code {
-  font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  font-family: 'Fira Code', 'Liberation Mono', Menlo, Courier, monospace;
   font-size: 1rem;
   line-height: 1.42;
 }
@@ -310,9 +318,4 @@ pre.code.fullwidth {
     width: 100%;
   }
 }
-`
-
-export const GlobalStyle = createGlobalStyle`
-${reset()}
-${styles()}
 `
