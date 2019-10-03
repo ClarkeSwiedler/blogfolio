@@ -24,3 +24,8 @@ At the end of this introductory article I will talk a little bit about myself, i
 
 ## Installation and setup of your environment
 
+Install Dart
+
+Install Visual Studio Code
+
+Install the Dart extension for VSCode
