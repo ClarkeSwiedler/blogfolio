@@ -3,7 +3,7 @@
   "scripts": {
     "build": "gatsby build",
     "deploy": "gatsby build && node ./scripts/deploy",
-    "dev": "gatsby develop"
+    "dev": "gatsby develop -H 0.0.0.0 -p 8000"
   },
   "license": "ISC",
   "devDependencies": {},
