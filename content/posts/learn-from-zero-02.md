@@ -76,7 +76,7 @@ Now it's important to mention that we could have just as easily written the prog
 void main(){print("Hello World!");}
 ```
 
-The reason we didn't, and one of the most important things to learn at any level of software development, is this: Human readability is one of the most crucial aspects of good code. It's much harder to write software that humans can understand than it is to write software that computers can understand. This will become much clearer as your skills grow and you begin to write larger programs, but it's worth knowing and remembering from day 1.
+The reason we didn't, and one of the most important things to learn at any level of software development, is this: Human readability is one of the most crucial aspects of good code. It's much harder to write software that humans can understand than it is to write software that computers can understand, and it can be a real problem as you begin to write larger programs.
 
 We didn't write everything on one line because that makes it harder for us to read and modify later.
 
@@ -96,6 +96,18 @@ It outputs
 I AM A COMPUTER BEEP BOOP.
 ```
 
+And if that was just a walk in the park, try changing it so the output looks like this:
+```
+STOP.
+Collaborate and listen.
+```
+
 You can do it. I believe in you.
 
 ## A note on learning
+
+From my experience, learning programming can feel like drinking from a firehose. You'll constantly learn about things that are hard to remember or really even understand because you don't have any context for them yet. The best, and maybe only way to build that context in your head is to just keep building stuff.
+
+I've found that there were a lot of topics I've heard about and then never really understood them until I was actually making something, trying to solve a problem, and realised that the solution was that thing. So I go back and learn about it again, but this time really understanding why it's helpful and important. I'm going to try to follow that pattern -- of learning about things only to learn about them again in more context later -- in this tutorial.
+
+If you feel like you're out of your depth on a topic, just let it wash over you and come back to it later.

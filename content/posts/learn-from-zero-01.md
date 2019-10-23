@@ -51,3 +51,7 @@ Unlike most standar text editors, VSCode doesn't just open single files, it open
 ## We've done it.
 
 That will be everything we need to get started. Time to write some code!
+
+### A little about me
+
+I taught myself how to code, and I enjoyed the process so much that I
