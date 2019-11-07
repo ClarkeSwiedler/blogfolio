@@ -54,9 +54,11 @@ Remember that `print` just writes something to the terminal. In this case, what 
 That's because instead of passing the `print` function something specific to print like "I AM A COMPUTER BEEP BOOP", we gave it our variable, `x`, which is currently equal to the number 5. You would say that the `value` of the variable `x` is `5`.
 
 Of course there's the all-important last line:
+
 ```dart
 }
 ```
+
 That's the end of our `main` function. The variable `x` is no longer available past this point.
 
 ## So why are they called variables?
@@ -84,4 +86,45 @@ x = 10;
 
 Here we are _reassigning_ the variable `x`, so that it holds a different value. Note that we don't use the `var` keyword again, because `x` already exists. To declare `x` a second time would cause an error, because only one variable with a particular name is allowed within a block of code.
 
-This is just a statement telling the compiler "Please
+Here we are saying "Take whatever data x was holding, and replace it with this new data."
+
+So now we will run our program, and we see that the output is
+
+```
+5
+10
+```
+
+Code sitting inside of a code block executes sequentially. That is, the program will run starting from the first line in the block, and will proceed line-by-line until the last line. That's why our program outputs what it does. It starts with the variable declaration, prints the value of the variable, changes the value of that variable, and then prints the new value.
+
+Variables can be used for a lot of things aside from just printing their value. For instance, we can do math with them!
+
+```dart
+void main() {
+  var x = 10;
+  var y = 7;
+  var z = x + y;
+  print(z);
+}
+```
+
+Maybe unsurprisingly, when we run this program we see the resulting output is
+
+```
+17
+```
+
+Of interest is the line where we declare the variable `z`. When we assign it a value, we don't give it an explicit value. Instead, we use the _expression_ `x + y`.
+
+Variables can be assigned either a value or an expression. If they are assigned a _value_, like `5`, then they simply hold that value. If they are assigned an _expression_, however, then that expression will be evaluated and the result will be stored in the variable.
+
+Remember that, with few exceptions, our variables can have any name we want to give them. The following piece of code is functionally identical to the above example:
+
+```dart
+void main() {
+  var boat = 10;
+  var giraffe = 7;
+  var trebuchet = boat + giraffe;
+  print(trebuchet);
+}
+```
