@@ -129,4 +129,18 @@ void main() {
 }
 ```
 
-That does it for basic variables. Next we will be covering types.
+That does it for basic variables. Next we will be covering types. But first!
+
+## A note about How Computers Work
+
+We are going to just barely scratch the surface of this topic, but it's important to have a little context to understand how things are working in the background. (Note to real CS engineers: The following is a gross oversimplification of the function of a computer)
+
+Okay, so computers can't read English. That is, opening a terminal and writing
+```
+Please, sir Computer, would you kindly tell me the sum of twelve and twenty-six? I would be ever so grateful. I hope to hear from you soon. Have a great day!
+```
+Will do nothing except produce a bunch of red error text (the computer equivalent of "WHAT WAS THAT? I DID NOT UNDERSTAND.")
+
+Right.
+
+Computers only operate in binary. Everything that happens in a computer is accomplished by flipping a bunch of little switches _unbelievably quickly_. Sometimes we tell those switches to flip, and sometimes those switches tell each other to flip.
