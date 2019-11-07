@@ -116,7 +116,7 @@ Maybe unsurprisingly, when we run this program we see the resulting output is
 17
 ```
 
-Of interest is the line where we declare the variable `z`. When we assign it a value, we don't give it an explicit value. Instead, we use the _expression_ `x + y`.
+Of interest is the line where we declare the variable `z`. When we assign it a value, we don't give it an explicit value. Instead, we use the _expression_ "`x + y`".
 
 Variables can be assigned either a value or an expression. If they are assigned a _value_, like `5`, then they simply hold that value. If they are assigned an _expression_, however, then that expression will be evaluated and the result will be stored in the variable.
 
@@ -130,3 +130,5 @@ void main() {
   print(trebuchet);
 }
 ```
+
+That does it for basic variables. Next we will be covering types.
