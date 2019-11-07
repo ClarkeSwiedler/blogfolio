@@ -33,15 +33,13 @@ var x = 5;
 
 Declaring a variable makes it available for use within that block of code. In this case, this variable will be available to all of the other code in the `main` function.
 
-- `var` | The word `var` starts the declaration of a variable. It says to the compiler "I would like you to make a space in the computer's memory for some data". In other words, it makes a box.
-
-- `x` | Then we gave that box a name, `x`. It can be almost any name. I chose `x` because I am boring.
-
-- `=` | Next up is the equals sign `=`, which is an _assignment operator_. It assigns a piece of data to the variable. It tells the compiler "I would like you to put the following piece of data in that box you made."
-
-- `5` | Then of course is the piece of data, `5`. This is what's stored in the box named `x`. Any other piece of code using this variable will look at it and see the number 5.
-
-- `;` | It may be a little easier now to see why semicolons are important. We want the variable to equal five, not five and whatever other lines of code come next. So we use a semicolon to end our statement.
+| <!-- --> | <!-- -->                                                                                                                                                                                                         |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `var`    | The word `var` starts the declaration of a variable. It says to the compiler "I would like you to make a space in the computer's memory for some data". In other words, it makes a box.                          |
+| `x`      | Then we gave that box a name, `x`. It can be almost any name. I chose `x` because I am boring.                                                                                                                   |
+| `=`      | Next up is the equals sign `=`, which is an _assignment operator_. It assigns a piece of data to the variable. It tells the compiler "I would like you to put the following piece of data in that box you made." |
+| `5`      | Then of course is the piece of data, `5`. This is what's stored in the box named `x`. Any other piece of code using this variable will look at it and see the number 5.                                          |
+| `;`      | It may be a little easier now to see why semicolons are important. We want the variable to equal five, not five and whatever other lines of code come next. So we use a semicolon to end our statement.          |
 
 Okay I promise that is the most in-depth I will ever go with one single line of code. Probably. It's just important to get the details sorted out before we move onto the bigger stuff. Also, this is the first programming tutorial I've written that is intended for adults, so if the tone and humor are occasionally childish, I'll call that my excuse.
 
