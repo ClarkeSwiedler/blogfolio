@@ -1,4 +1,11 @@
-# Coding from Zero using Dart / Flutter 01 - Introduction and Setup
+---
+title: Coding from Zero using Dart / Flutter 01 - Introduction and Setup
+date: '2019-11-01'
+published: true
+layout: post
+tags: ['dart', 'flutter', 'tutorial']
+category: software
+---
 
 ## Introduction
 

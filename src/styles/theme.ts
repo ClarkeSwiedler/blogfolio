@@ -131,12 +131,14 @@ p {
 }
 
 blockquote {
-  font-size: 1.4rem;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 5px solid grey;
+  padding-left: 10px;
 }
 
 blockquote p {
-  width: 55%;
-  margin-right: 40px;
+  font-size: 1rem;
 }
 
 blockquote footer {
@@ -212,6 +214,18 @@ div.table-wrapper {
   font-family: 'Trebuchet MS', 'Gill Sans', 'Gill Sans MT', sans-serif;
 }
 
+table {
+  border-collapse: collapse;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+tr {
+}
+
 code {
   font-family: 'Fira Code', 'Liberation Mono', Menlo, Courier, monospace;
   font-size: 1rem;
@@ -242,7 +256,7 @@ pre.code.fullwidth {
 
 .iframe-wrapper {
   position: relative;
-  padding-bottom: 56.25%; /* 16:9 */
+  padding-bottom: 56.25%;
   padding-top: 25px;
   height: 0;
 }

@@ -1,4 +1,11 @@
-# Coding from Zero using Dart / Flutter 02 - Hello, world.
+---
+title: Coding from Zero using Dart / Flutter 02 - Hello, world.
+date: '2019-11-02'
+published: true
+layout: post
+tags: ['dart', 'flutter', 'tutorial']
+category: software
+---
 
 It's time to write our very first Dart program.
 

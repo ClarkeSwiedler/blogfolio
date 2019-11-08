@@ -1,4 +1,11 @@
-# Coding from Zero using Dart / Flutter 03 - Variables
+---
+title: Coding from Zero using Dart / Flutter 03 - Variables
+date: '2019-11-03'
+published: true
+layout: post
+tags: ['dart', 'flutter', 'tutorial']
+category: software
+---
 
 ## What is a variable?
 
@@ -6,7 +13,7 @@ A variable can be thought of as a box that has a name and can store one piece of
 
 We can give variables almost any name we want and then refer to them later on in the code.
 
-A simple example of a variable looks like this:
+A simple example of a variable declaration looks like this:
 
 ```dart
 void main() {
@@ -40,6 +47,8 @@ Declaring a variable makes it available for use within that block of code. In th
 | `=`      | Next up is the equals sign `=`, which is an _assignment operator_. It assigns a piece of data to the variable. It tells the compiler "I would like you to put the following piece of data in that box you made." |
 | `5`      | Then of course is the piece of data, `5`. This is what's stored in the box named `x`. Any other piece of code using this variable will look at it and see the number 5.                                          |
 | `;`      | It may be a little easier now to see why semicolons are important. We want the variable to equal five, not five and whatever other lines of code come next. So we use a semicolon to end our statement.          |
+
+>Note: when I mention "The Compiler", what I mean is the program that translates your Dart code into something the computer understands.
 
 Okay I promise that is the most in-depth I will ever go with one single line of code. Probably. It's just important to get the details sorted out before we move onto the bigger stuff. Also, this is the first programming tutorial I've written that is intended for adults, so if the tone and humor are occasionally childish, I'll call that my excuse.
 
@@ -129,26 +138,4 @@ void main() {
 }
 ```
 
-That does it for basic variables. Next we will be covering types. But first!
-
-## A note about How Computers Work
-
-We are going to just barely scratch the surface of this topic, but it's important to have a little context to understand how things are working in the background. (Note to real CS engineers: The following is a gross oversimplification of the function of a computer)
-
-Okay, so computers can't read English. That is, opening a terminal and writing
-
-```
-Please, sir Computer, would you kindly tell me the sum of twelve and twenty-six? I would be ever so grateful. I hope to hear from you soon. Have a great day!
-```
-
-Will do nothing except produce a bunch of red error text (the computer equivalent of "WHAT WAS THAT? I DID NOT UNDERSTAND.")
-
-Right.
-
-Computers only operate in binary, which is a number system that only contains 1 and 0. Everything that happens in a computer is accomplished by flipping a bunch of little switches really fast. A big bunch. And they're extremely little. And it's _unbelievably_ fast. Anyway, on is 1, off is 0.
-
-Sometimes we tell those switches to flip, and sometimes those switches tell each other to flip. Either way, every instruction given to a computer by a person has to eventually be translated into some switch flippin.
-
-Sometimes I refer to "The Compiler" when I'm talking about code. A compiler is a program that translates the code you write, and can read, into instructions for the CPU and memory in your computer to flip all their switches in the exact right way.
-
-Programming is a process of writing out instructions to execute an idea you have, and those instructions have to be understood by both the computer and humans.
+That does it for basic variables. The next article will cover types.
