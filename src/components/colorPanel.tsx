@@ -18,6 +18,21 @@ class RGB {
   }
 }
 
+class Colors {
+  rectArray: RGB[][]
+
+  populate(topLeft: RGB, topRight: RGB, bottomRight: RGB, bottomLeft: RGB, numAcross, numDown) {
+    for (let i = 1; i <= numDown; i += 1) {
+      for (let j = 1; j <= numAcross; j += 1) {
+        const red = Math.floor(topLeft.red - ((topLeft.red - bottomRight.red) / numAcross) * i)
+        const green = Math.floor(topLeft.green - ((topLeft.green - topLeft.green) / numAcross) * i)
+        const blue = Math.floor(topLeft.blue - ((topLeft.blue - bottomRight.blue) / numAcross) * i)
+        this.rectArray[i][j] = new RGB(red, green, blue)
+      }
+    }
+  }
+}
+
 class ColorRect {
   color: RGB
   posX: number
