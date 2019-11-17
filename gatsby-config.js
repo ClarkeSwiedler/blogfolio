@@ -8,7 +8,7 @@ module.exports = {
     author: {
       name: 'Clarke Swiedler',
       email: 'Clarke@swiedler.com',
-    }
+    },
   },
   plugins: [
     {
@@ -18,13 +18,13 @@ module.exports = {
         name: `posts`,
       },
     },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/assets`,
-        name: `assets`,
-      },
-    },
+    // {
+    //   resolve: `gatsby-source-filesystem`,
+    //   options: {
+    //     path: `${__dirname}/content/assets`,
+    //     name: `assets`,
+    //   },
+    // },
     {
       resolve: `gatsby-transformer-remark`,
       options: {
@@ -71,5 +71,5 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-typescript`,
     `gatsby-transformer-sharp`,
-  ]
+  ],
 }
