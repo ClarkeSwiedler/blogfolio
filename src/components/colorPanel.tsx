@@ -2,7 +2,7 @@ import React, {useEffect, useRef, Context} from 'react'
 
 interface ColorPanelProps {}
 
-class Color {
+class RGB {
   red: number
   green: number
   blue: number
@@ -19,13 +19,13 @@ class Color {
 }
 
 class ColorRect {
-  color: Color
+  color: RGB
   posX: number
   posY: number
   width: number
   height: number
 
-  constructor(color: Color, posX: number, posY: number, height: number, width: number) {
+  constructor(color: RGB, posX: number, posY: number, height: number, width: number) {
     this.color = color
     this.posX = posX
     this.posY = posY
@@ -35,8 +35,8 @@ class ColorRect {
 }
 
 const fillCanvas = (ctx: CanvasRenderingContext2D) => {
-  const startColor = new Color(255, 0, 0)
-  const endColor = new Color(0, 0, 255)
+  const startColor = new RGB(255, 255, 255)
+  const endColor = new RGB(0, 0, 0)
   const canvasWidth = ctx.canvas.width
   const canvasHeight = ctx.canvas.height
   const boxHeight = 20
@@ -44,7 +44,19 @@ const fillCanvas = (ctx: CanvasRenderingContext2D) => {
   const numAcross = Math.floor(canvasWidth / boxWidth)
   const numDown = Math.floor(canvasHeight / boxHeight)
 
-  // for (let i = 1; i <= numAcross; i += 1) {}
+  for (let i = 1; i <= numDown; i += 1) {
+    for (let j = 1; j <= numAcross; j += 1) {
+      const xpos = j * boxWidth
+      const ypos = i * boxHeight
+      const red = Math.floor(startColor.red - ((startColor.red - endColor.red) / numAcross) * i)
+      const green = Math.floor(
+        startColor.green - ((startColor.green - endColor.green) / numAcross) * i,
+      )
+      const blue = Math.floor(startColor.blue - ((startColor.blue - endColor.blue) / numAcross) * i)
+      ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`
+      ctx.fillRect(xpos, ypos, boxWidth, boxHeight)
+    }
+  }
 }
 
 const ColorPanel = (props: ColorPanelProps) => {
