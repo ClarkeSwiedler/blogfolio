@@ -3,18 +3,30 @@ import React, {useEffect, useRef, Context} from 'react'
 interface ColorPanelProps {}
 
 class RGB {
-  red: number
-  green: number
-  blue: number
+  r: number
+  g: number
+  b: number
 
-  constructor(red: number, green: number, blue: number) {
-    this.red = red
-    this.green = green
-    this.blue = blue
+  constructor(r: number, g: number, b: number) {
+    this.r = r
+    this.g = g
+    this.b = b
   }
 
   toCssString(): string {
-    return `rgb(${this.red}, ${this.green}, ${this.blue})`
+    return `rgb(${this.r}, ${this.g}, ${this.b})`
+  }
+}
+
+class HSL {
+  h: number
+  s: number
+  l: number
+
+  constructor(h: number, s: number, l: number) {
+    this.h = h
+    this.s = s
+    this.l = l
   }
 }
 
@@ -24,10 +36,10 @@ class Colors {
   populate(topLeft: RGB, topRight: RGB, bottomRight: RGB, bottomLeft: RGB, numAcross, numDown) {
     for (let i = 1; i <= numDown; i += 1) {
       for (let j = 1; j <= numAcross; j += 1) {
-        const red = Math.floor(topLeft.red - ((topLeft.red - bottomRight.red) / numAcross) * i)
-        const green = Math.floor(topLeft.green - ((topLeft.green - topLeft.green) / numAcross) * i)
-        const blue = Math.floor(topLeft.blue - ((topLeft.blue - bottomRight.blue) / numAcross) * i)
-        this.rectArray[i][j] = new RGB(red, green, blue)
+        const r = Math.floor(topLeft.r - ((topLeft.r - bottomRight.r) / numAcross) * i)
+        const g = Math.floor(topLeft.g - ((topLeft.g - topLeft.g) / numAcross) * i)
+        const b = Math.floor(topLeft.b - ((topLeft.b - bottomRight.b) / numAcross) * i)
+        this.rectArray[i][j] = new RGB(r, g, b)
       }
     }
   }
@@ -63,12 +75,10 @@ const fillCanvas = (ctx: CanvasRenderingContext2D) => {
     for (let j = 1; j <= numAcross; j += 1) {
       const xpos = j * boxWidth
       const ypos = i * boxHeight
-      const red = Math.floor(startColor.red - ((startColor.red - endColor.red) / numAcross) * i)
-      const green = Math.floor(
-        startColor.green - ((startColor.green - endColor.green) / numAcross) * i,
-      )
-      const blue = Math.floor(startColor.blue - ((startColor.blue - endColor.blue) / numAcross) * i)
-      ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`
+      const r = Math.floor(startColor.r - ((startColor.r - endColor.r) / numAcross) * i)
+      const g = Math.floor(startColor.g - ((startColor.g - endColor.g) / numAcross) * i)
+      const b = Math.floor(startColor.b - ((startColor.b - endColor.b) / numAcross) * i)
+      ctx.fillStyle = `rgb(${r}, ${g}, ${b})`
       ctx.fillRect(xpos, ypos, boxWidth, boxHeight)
     }
   }
