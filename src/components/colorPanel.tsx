@@ -1,37 +1,10 @@
 import React, {useEffect, useRef, Context} from 'react'
+import {RGB, HSL, Color} from '../util/color'
 
 interface ColorPanelProps {}
 
-class RGB {
-  r: number
-  g: number
-  b: number
-
-  constructor(r: number, g: number, b: number) {
-    this.r = r
-    this.g = g
-    this.b = b
-  }
-
-  toCssString(): string {
-    return `rgb(${this.r}, ${this.g}, ${this.b})`
-  }
-}
-
-class HSL {
-  h: number
-  s: number
-  l: number
-
-  constructor(h: number, s: number, l: number) {
-    this.h = h
-    this.s = s
-    this.l = l
-  }
-}
-
-class Colors {
-  rectArray: RGB[][]
+class ColorRectArray {
+  current: RGB[][]
 
   populate(topLeft: RGB, topRight: RGB, bottomRight: RGB, bottomLeft: RGB, numAcross, numDown) {
     for (let i = 1; i <= numDown; i += 1) {
@@ -39,7 +12,7 @@ class Colors {
         const r = Math.floor(topLeft.r - ((topLeft.r - bottomRight.r) / numAcross) * i)
         const g = Math.floor(topLeft.g - ((topLeft.g - topLeft.g) / numAcross) * i)
         const b = Math.floor(topLeft.b - ((topLeft.b - bottomRight.b) / numAcross) * i)
-        this.rectArray[i][j] = new RGB(r, g, b)
+        this.current[i][j] = new RGB(r, g, b)
       }
     }
   }
