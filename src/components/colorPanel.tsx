@@ -24,8 +24,10 @@ class Colors {
   populate(topLeft: RGB, topRight: RGB, bottomRight: RGB, bottomLeft: RGB, numAcross, numDown) {
     for (let i = 1; i <= numDown; i += 1) {
       for (let j = 1; j <= numAcross; j += 1) {
-        const red = Math.floor(topLeft.red - ((topLeft.red - bottomRight.red) / numAcross) * i)
+        const red = Math.floor(topLeft.red - ((topLeft.red - topRight.red) / numAcross) * i)
+
         const green = Math.floor(topLeft.green - ((topLeft.green - topLeft.green) / numAcross) * i)
+
         const blue = Math.floor(topLeft.blue - ((topLeft.blue - bottomRight.blue) / numAcross) * i)
         this.rectArray[i][j] = new RGB(red, green, blue)
       }
@@ -63,11 +65,15 @@ const fillCanvas = (ctx: CanvasRenderingContext2D) => {
     for (let j = 1; j <= numAcross; j += 1) {
       const xpos = j * boxWidth
       const ypos = i * boxHeight
+
       const red = Math.floor(startColor.red - ((startColor.red - endColor.red) / numAcross) * i)
+
       const green = Math.floor(
         startColor.green - ((startColor.green - endColor.green) / numAcross) * i,
       )
+
       const blue = Math.floor(startColor.blue - ((startColor.blue - endColor.blue) / numAcross) * i)
+
       ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`
       ctx.fillRect(xpos, ypos, boxWidth, boxHeight)
     }
