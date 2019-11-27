@@ -33,15 +33,15 @@ export function rgbToHsl(rgb: RGB): HSL {
 
   const max = Math.max(r, g, b)
   const min = Math.min(r, g, b)
-  var h: number
-  var s: number
-  var l: number = (max + min) / 2
+  let h: number
+  let s: number
+  const l: number = (max + min) / 2
 
   if (max === min) {
     h = 0
     s = 0
   } else {
-    var difference = max - min
+    const difference = max - min
     s = l > 0.5 ? difference / (2 - max - min) : difference / (max + min)
 
     switch (max) {
@@ -54,6 +54,8 @@ export function rgbToHsl(rgb: RGB): HSL {
       case b:
         h = (r - g) / difference + 4
         break
+      default:
+        break
     }
     h /= 6
   }
@@ -61,8 +63,20 @@ export function rgbToHsl(rgb: RGB): HSL {
   return new HSL(h, s, l)
 }
 
+const hueToRgb = (p: number, q: number, t: number) => {
+  let et = t
+  if (et < 0) et += 1
+  if (et > 1) et -= 1
+  if (et < 1 / 6) return p + (q - p) * 6 * et
+  if (et < 1 / 2) return q
+  if (et < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6
+  return p
+}
+
 export function hslToRgb(hsl: HSL) {
-  var r: number, g: number, b: number
+  let r: number
+  let g: number
+  let b: number
   const h = hsl.h
   const s = hsl.s
   const l = hsl.l
@@ -70,17 +84,8 @@ export function hslToRgb(hsl: HSL) {
   if (s === 0) {
     r = g = b = l
   } else {
-    const hueToRgb = (p, q, t) => {
-      if (t < 0) t += 1
-      if (t > 1) t -= 1
-      if (t < 1 / 6) return p + (q - p) * 6 * t
-      if (t < 1 / 2) return q
-      if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6
-      return p
-    }
-
-    var q = l < 0.5 ? l * (1 + s) : l + s - l * s
-    var p = 2 * l - q
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s
+    const p = 2 * l - q
 
     r = hueToRgb(p, q, h + 1 / 3)
     g = hueToRgb(p, q, h)
@@ -91,29 +96,37 @@ export function hslToRgb(hsl: HSL) {
 }
 
 export class Color {
-  rgb: RGB
-  hsl: HSL
+  private rgb: RGB
+  private hsl: HSL
 
-  constructor(rgb?: RGB, hsl?: HSL) {
-    this.rgb = rgb
-    this.hsl = hsl
+  constructor(value: RGB | HSL) {
+    if (value instanceof RGB) {
+      this.rgb = value
+    }
+    if (value instanceof HSL) {
+      this.hsl = value
+    }
   }
 
   asHSL(): HSL {
-    if (this.hsl !== null) {
+    if (this.hsl) {
       return this.hsl
     }
     if (this.rgb === null) {
       return null
     }
+    this.hsl = rgbToHsl(this.rgb)
+    return this.hsl
   }
 
   asRGB(): RGB {
-    if (this.rgb !== null) {
+    if (this.rgb) {
       return this.rgb
     }
     if (this.hsl === null) {
       return null
     }
+    this.rgb = hslToRgb(this.hsl)
+    return this.rgb
   }
 }

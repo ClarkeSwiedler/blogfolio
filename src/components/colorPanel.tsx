@@ -1,20 +1,85 @@
 import React, {useEffect, useRef, Context} from 'react'
 import {RGB, HSL, Color} from '../util/color'
 
-interface ColorPanelProps {}
+interface ColorRectArrayValues {
+  topLeft: Color
+  topRight: Color
+  bottomLeft: Color
+  bottomRight: Color
+  numAcross: number
+  numDown: number
+  cellHeight: number
+  cellWidth: number
+}
 
 class ColorRectArray {
-  current: RGB[][]
+  topLeft: Color
+  topRight: Color
+  bottomLeft: Color
+  bottomRight: Color
+  numAcross: number
+  numDown: number
+  cellHeight: number
+  cellWidth: number
 
-  populate(topLeft: RGB, topRight: RGB, bottomRight: RGB, bottomLeft: RGB, numAcross, numDown) {
-    for (let i = 1; i <= numDown; i += 1) {
-      for (let j = 1; j <= numAcross; j += 1) {
-        const r = Math.floor(topLeft.r - ((topLeft.r - bottomRight.r) / numAcross) * i)
-        const g = Math.floor(topLeft.g - ((topLeft.g - topLeft.g) / numAcross) * i)
-        const b = Math.floor(topLeft.b - ((topLeft.b - bottomRight.b) / numAcross) * i)
-        this.current[i][j] = new RGB(r, g, b)
+  current: ColorRect[]
+
+  constructor(values: ColorRectArrayValues) {
+    this.topLeft = values.topLeft
+    this.topRight = values.topRight
+    this.bottomLeft = values.bottomLeft
+    this.bottomRight = values.bottomRight
+    this.numAcross = values.numAcross
+    this.numDown = values.numDown
+    this.cellHeight = values.cellHeight
+    this.cellWidth = values.cellWidth
+    this.current = []
+  }
+
+  populate() {
+    this.current = []
+    for (let i = 1; i <= this.numDown; i += 1) {
+      for (let j = 1; j <= this.numAcross; j += 1) {
+        const posX = this.cellWidth * i
+        const posY = this.cellHeight * j
+        const color = this.calculateCell(i, j)
+        this.current.push(new ColorRect(color.asRGB(), posX, posY, this.cellHeight, this.cellWidth))
       }
     }
+  }
+
+  calculateCell(posX: number, posY: number): Color {
+    const tl = this.topLeft.asHSL()
+    const tr = this.topRight.asHSL()
+    const bl = this.bottomLeft.asHSL()
+    const br = this.bottomRight.asHSL()
+    console.log(
+      `Square values: tl: ${JSON.stringify(tl)}, tr: ${JSON.stringify(tr)}, bl: ${JSON.stringify(
+        bl,
+      )}, br: ${JSON.stringify(br)}`,
+    )
+
+    const h = this.applyGradient(tl.h, tr.h, bl.h, br.h, posX, posY)
+    const s = this.applyGradient(tl.s, tr.s, bl.s, br.s, posX, posY)
+    const l = this.applyGradient(tl.l, tr.l, bl.l, br.l, posX, posY)
+
+    return new Color(new HSL(h, s, l))
+  }
+
+  applyGradient(
+    topLeft: number,
+    topRight: number,
+    bottomLeft: number,
+    bottomRight: number,
+    posX: number,
+    posY: number,
+  ) {
+    return (
+      bottomLeft * (posY / this.numDown) +
+      topLeft * (1 - posY / this.numDown) * (posX / this.numAcross) +
+      (bottomRight * (posY / this.numDown) +
+        topRight * (1 - posY / this.numDown) * (1 - posX / this.numAcross))
+    )
   }
 }
 
@@ -44,18 +109,35 @@ const fillCanvas = (ctx: CanvasRenderingContext2D) => {
   const numAcross = Math.floor(canvasWidth / boxWidth)
   const numDown = Math.floor(canvasHeight / boxHeight)
 
-  for (let i = 1; i <= numDown; i += 1) {
-    for (let j = 1; j <= numAcross; j += 1) {
-      const xpos = j * boxWidth
-      const ypos = i * boxHeight
-      const r = Math.floor(startColor.r - ((startColor.r - endColor.r) / numAcross) * i)
-      const g = Math.floor(startColor.g - ((startColor.g - endColor.g) / numAcross) * i)
-      const b = Math.floor(startColor.b - ((startColor.b - endColor.b) / numAcross) * i)
-      ctx.fillStyle = `rgb(${r}, ${g}, ${b})`
-      ctx.fillRect(xpos, ypos, boxWidth, boxHeight)
-    }
+  const options: ColorRectArrayValues = {
+    topLeft: new Color(new RGB(255, 0, 0)),
+    topRight: new Color(new RGB(0, 0, 0)),
+    bottomLeft: new Color(new RGB(255, 255, 255)),
+    bottomRight: new Color(new RGB(0, 0, 255)),
+    numAcross: Math.floor(canvasWidth / boxWidth),
+    numDown: Math.floor(canvasHeight / boxHeight),
+    cellHeight: boxHeight,
+    cellWidth: boxWidth,
   }
+
+  const array = new ColorRectArray(options)
+  array.populate()
+  console.log(JSON.stringify(array))
+  array.current.forEach(rect => {
+    ctx.fillStyle = rect.color.toCssString()
+    ctx.fillRect(rect.posX, rect.posY, rect.width, rect.height)
+  })
+
+  // const color = new Color(new RGB(200, 100, 56))
+  // ctx.fillStyle = color.asRGB().toCssString()
+  // ctx.fillRect(0, 0, 40, 40)
+  // const otherColor = color.asHSL()
+  // const convertedColor = new Color(otherColor).asRGB()
+  // ctx.fillStyle = convertedColor.toCssString()
+  // ctx.fillRect(40, 0, 40, 40)
 }
+
+interface ColorPanelProps {}
 
 const ColorPanel = (props: ColorPanelProps) => {
   const ref = useRef<HTMLCanvasElement>()
