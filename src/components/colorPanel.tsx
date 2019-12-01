@@ -38,8 +38,8 @@ class ColorRectArray {
 
   populate() {
     this.current = []
-    for (let i = 1; i <= this.numDown; i += 1) {
-      for (let j = 1; j <= this.numAcross; j += 1) {
+    for (let i = 0; i <= this.numDown; i += 1) {
+      for (let j = 0; j <= this.numAcross; j += 1) {
         const posX = this.cellWidth * i
         const posY = this.cellHeight * j
         const color = this.calculateCell(i, j)
@@ -49,21 +49,21 @@ class ColorRectArray {
   }
 
   calculateCell(posX: number, posY: number): Color {
-    const tl = this.topLeft.asHSL()
-    const tr = this.topRight.asHSL()
-    const bl = this.bottomLeft.asHSL()
-    const br = this.bottomRight.asHSL()
+    const tl = this.topLeft.asRGB()
+    const tr = this.topRight.asRGB()
+    const bl = this.bottomLeft.asRGB()
+    const br = this.bottomRight.asRGB()
     console.log(
       `Square values: tl: ${JSON.stringify(tl)}, tr: ${JSON.stringify(tr)}, bl: ${JSON.stringify(
         bl,
       )}, br: ${JSON.stringify(br)}`,
     )
 
-    const h = this.applyGradient(tl.h, tr.h, bl.h, br.h, posX, posY)
-    const s = this.applyGradient(tl.s, tr.s, bl.s, br.s, posX, posY)
-    const l = this.applyGradient(tl.l, tr.l, bl.l, br.l, posX, posY)
+    const r = this.applyGradient(tl.r, tr.r, bl.r, br.r, posX, posY)
+    const g = this.applyGradient(tl.g, tr.g, bl.g, br.g, posX, posY)
+    const b = this.applyGradient(tl.b, tr.b, bl.b, br.b, posX, posY)
 
-    return new Color(new HSL(h, s, l))
+    return new Color(new RGB(r, g, b))
   }
 
   applyGradient(
@@ -75,11 +75,18 @@ class ColorRectArray {
     posY: number,
   ) {
     return (
-      bottomLeft * (posY / this.numDown) +
-      topLeft * (1 - posY / this.numDown) * (posX / this.numAcross) +
-      (bottomRight * (posY / this.numDown) +
-        topRight * (1 - posY / this.numDown) * (1 - posX / this.numAcross))
+      topLeft * (1 - posX / this.numAcross) * (1 - posY / this.numDown) +
+      topRight * (posX / this.numAcross) * (1 - posY / this.numDown) +
+      bottomLeft * (1 - posX / this.numAcross) * (posY / this.numDown) +
+      bottomRight * (posX / this.numAcross) * (posY / this.numDown)
     )
+
+    // return (
+    //   bottomLeft * (posY / this.numDown) +
+    //   topLeft * (1 - posY / this.numDown) * (posX / this.numAcross) +
+    //   (bottomRight * (posY / this.numDown) +
+    //     topRight * (1 - posY / this.numDown) * (1 - posX / this.numAcross))
+    // )
   }
 }
 
@@ -104,16 +111,16 @@ const fillCanvas = (ctx: CanvasRenderingContext2D) => {
   const endColor = new RGB(0, 0, 0)
   const canvasWidth = ctx.canvas.width
   const canvasHeight = ctx.canvas.height
-  const boxHeight = 20
-  const boxWidth = 20
+  const boxHeight = 40
+  const boxWidth = 40
   const numAcross = Math.floor(canvasWidth / boxWidth)
   const numDown = Math.floor(canvasHeight / boxHeight)
 
   const options: ColorRectArrayValues = {
     topLeft: new Color(new RGB(255, 0, 0)),
-    topRight: new Color(new RGB(0, 0, 0)),
-    bottomLeft: new Color(new RGB(255, 255, 255)),
-    bottomRight: new Color(new RGB(0, 0, 255)),
+    topRight: new Color(new RGB(0, 255, 0)),
+    bottomLeft: new Color(new RGB(0, 0, 255)),
+    bottomRight: new Color(new RGB(0, 0, 0)),
     numAcross: Math.floor(canvasWidth / boxWidth),
     numDown: Math.floor(canvasHeight / boxHeight),
     cellHeight: boxHeight,
