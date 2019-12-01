@@ -1,49 +1,41 @@
 import React, {useEffect, useRef, Context} from 'react'
 import {RGB, HSL, Color} from '../util/color'
 
-interface ColorRectArrayValues {
+interface ColorMatrixValues {
   topLeft: Color
   topRight: Color
   bottomLeft: Color
   bottomRight: Color
   numAcross: number
   numDown: number
-  cellHeight: number
-  cellWidth: number
 }
 
-class ColorRectArray {
+class ColorMatrix {
   topLeft: Color
   topRight: Color
   bottomLeft: Color
   bottomRight: Color
   numAcross: number
   numDown: number
-  cellHeight: number
-  cellWidth: number
 
-  current: ColorRect[]
+  current: Color[][]
 
-  constructor(values: ColorRectArrayValues) {
+  constructor(values: ColorMatrixValues) {
     this.topLeft = values.topLeft
     this.topRight = values.topRight
     this.bottomLeft = values.bottomLeft
     this.bottomRight = values.bottomRight
     this.numAcross = values.numAcross
     this.numDown = values.numDown
-    this.cellHeight = values.cellHeight
-    this.cellWidth = values.cellWidth
-    this.current = []
   }
 
   populate() {
     this.current = []
     for (let i = 0; i <= this.numDown; i += 1) {
+      this.current[i] = []
       for (let j = 0; j <= this.numAcross; j += 1) {
-        const posX = this.cellWidth * i
-        const posY = this.cellHeight * j
         const color = this.calculateCell(i, j)
-        this.current.push(new ColorRect(color.asRGB(), posX, posY, this.cellHeight, this.cellWidth))
+        this.current[i][j] = color
       }
     }
   }
@@ -80,35 +72,26 @@ class ColorRectArray {
       bottomLeft * (1 - posX / this.numAcross) * (posY / this.numDown) +
       bottomRight * (posX / this.numAcross) * (posY / this.numDown)
     )
-
-    // return (
-    //   bottomLeft * (posY / this.numDown) +
-    //   topLeft * (1 - posY / this.numDown) * (posX / this.numAcross) +
-    //   (bottomRight * (posY / this.numDown) +
-    //     topRight * (1 - posY / this.numDown) * (1 - posX / this.numAcross))
-    // )
   }
-}
 
-class ColorRect {
-  color: RGB
-  posX: number
-  posY: number
-  width: number
-  height: number
+  // randomize() {}
 
-  constructor(color: RGB, posX: number, posY: number, height: number, width: number) {
-    this.color = color
-    this.posX = posX
-    this.posY = posY
-    this.width = width
-    this.height = height
+  randomizeArray(array: Color[]) {
+    let currentIndex = this.current.length
+    let temporaryValue: Color
+    let randomIndex: number
+
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex)
+      currentIndex -= 1
+      temporaryValue = array[currentIndex]
+      array[currentIndex] = array[randomIndex]
+      array[randomIndex] = temporaryValue
+    }
   }
 }
 
 const fillCanvas = (ctx: CanvasRenderingContext2D) => {
-  const startColor = new RGB(255, 255, 255)
-  const endColor = new RGB(0, 0, 0)
   const canvasWidth = ctx.canvas.width
   const canvasHeight = ctx.canvas.height
   const boxHeight = 40
@@ -116,32 +99,25 @@ const fillCanvas = (ctx: CanvasRenderingContext2D) => {
   const numAcross = Math.floor(canvasWidth / boxWidth)
   const numDown = Math.floor(canvasHeight / boxHeight)
 
-  const options: ColorRectArrayValues = {
+  const options: ColorMatrixValues = {
+    numAcross,
+    numDown,
     topLeft: new Color(new RGB(255, 0, 0)),
     topRight: new Color(new RGB(0, 255, 0)),
     bottomLeft: new Color(new RGB(0, 0, 255)),
-    bottomRight: new Color(new RGB(0, 0, 0)),
-    numAcross: Math.floor(canvasWidth / boxWidth),
-    numDown: Math.floor(canvasHeight / boxHeight),
-    cellHeight: boxHeight,
-    cellWidth: boxWidth,
+    bottomRight: new Color(new RGB(0, 255, 255)),
   }
 
-  const array = new ColorRectArray(options)
+  const array = new ColorMatrix(options)
   array.populate()
+  // array.randomize()
   console.log(JSON.stringify(array))
-  array.current.forEach(rect => {
-    ctx.fillStyle = rect.color.toCssString()
-    ctx.fillRect(rect.posX, rect.posY, rect.width, rect.height)
-  })
-
-  // const color = new Color(new RGB(200, 100, 56))
-  // ctx.fillStyle = color.asRGB().toCssString()
-  // ctx.fillRect(0, 0, 40, 40)
-  // const otherColor = color.asHSL()
-  // const convertedColor = new Color(otherColor).asRGB()
-  // ctx.fillStyle = convertedColor.toCssString()
-  // ctx.fillRect(40, 0, 40, 40)
+  for (let i = 0; i <= numDown; i += 1) {
+    for (let j = 0; j <= numAcross; j += 1) {
+      ctx.fillStyle = array.current[i][j].asRGB().toCssString()
+      ctx.fillRect(boxWidth * j, boxHeight * i, boxWidth, boxHeight)
+    }
+  }
 }
 
 interface ColorPanelProps {}
