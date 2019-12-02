@@ -96,6 +96,9 @@ export function hslToRgb(hsl: HSL) {
 }
 
 export class Color {
+  static white() {
+    return
+  }
   private rgb: RGB
   private hsl: HSL
 

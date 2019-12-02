@@ -91,36 +91,16 @@ class ColorMatrix {
   }
 }
 
-const fillCanvas = (ctx: CanvasRenderingContext2D) => {
-  const canvasWidth = ctx.canvas.width
-  const canvasHeight = ctx.canvas.height
-  const boxHeight = 40
-  const boxWidth = 40
-  const numAcross = Math.floor(canvasWidth / boxWidth)
-  const numDown = Math.floor(canvasHeight / boxHeight)
-
-  const options: ColorMatrixValues = {
-    numAcross,
-    numDown,
-    topLeft: new Color(new RGB(255, 0, 0)),
-    topRight: new Color(new RGB(0, 255, 0)),
-    bottomLeft: new Color(new RGB(0, 0, 255)),
-    bottomRight: new Color(new RGB(0, 255, 255)),
-  }
-
-  const array = new ColorMatrix(options)
-  array.populate()
-  // array.randomize()
-  console.log(JSON.stringify(array))
-  for (let i = 0; i <= numDown; i += 1) {
-    for (let j = 0; j <= numAcross; j += 1) {
-      ctx.fillStyle = array.current[i][j].asRGB().toCssString()
-      ctx.fillRect(boxWidth * j, boxHeight * i, boxWidth, boxHeight)
-    }
-  }
+interface ColorPanelProps {
+  canvasWidth: number
+  canvasHeight: number
+  cellHeight: number
+  cellWidth: number
+  topLeft: Color
+  topRight: Color
+  bottomLeft: Color
+  bottomRight: Color
 }
-
-interface ColorPanelProps {}
 
 const ColorPanel = (props: ColorPanelProps) => {
   const ref = useRef<HTMLCanvasElement>()
@@ -131,7 +111,38 @@ const ColorPanel = (props: ColorPanelProps) => {
     fillCanvas(ctx)
   })
 
-  return <canvas ref={ref} width="400" height="400" />
+  const fillCanvas = (ctx: CanvasRenderingContext2D) => {
+    const canvasWidth = ctx.canvas.width
+    const canvasHeight = ctx.canvas.height
+    const boxHeight = props.cellHeight
+    const boxWidth = props.cellWidth
+    const numAcross = Math.floor(canvasWidth / boxWidth)
+    const numDown = Math.floor(canvasHeight / boxHeight)
+
+    const options: ColorMatrixValues = {
+      numAcross,
+      numDown,
+      topLeft: props.topLeft,
+      topRight: props.topRight,
+      bottomLeft: props.bottomLeft,
+      bottomRight: props.bottomRight,
+    }
+
+    const matrix = new ColorMatrix(options)
+    matrix.populate()
+    // matrix.randomize()
+    console.log(JSON.stringify(matrix))
+    for (let i = 0; i <= numDown; i += 1) {
+      for (let j = 0; j <= numAcross; j += 1) {
+        ctx.fillStyle = matrix.current[i][j].asRGB().toCssString()
+        ctx.fillRect(boxWidth * j, boxHeight * i, boxWidth, boxHeight)
+      }
+    }
+  }
+
+  return (
+    <canvas ref={ref} width={props.canvasWidth.toString()} height={props.canvasHeight.toString()} />
+  )
 }
 
 export default ColorPanel

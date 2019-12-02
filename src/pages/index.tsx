@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Layout from '../components/layout'
 import {styled} from '../styles/theme'
 import ColorPanel from '../components/colorPanel'
+import {Color, RGB} from '../util/color'
+import GradientGenerator from '../components/gradientGenerator'
 
 const CanvasHost = styled.div`
   width: 100%;
@@ -15,9 +17,7 @@ const index = () => {
   return (
     <Layout>
       <article>
-        <CanvasHost>
-          <ColorPanel />
-        </CanvasHost>
+        <GradientGenerator />
       </article>
     </Layout>
   )
