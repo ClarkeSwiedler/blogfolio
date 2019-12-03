@@ -11,5 +11,5 @@ interface ColorPickerProps {
 }
 
 const ColorPicker = (props: ColorPickerProps) => {
-  const [color, setColor] = useState(Color.white())
+  const [color, setColor] = useState(Color.white)
 }

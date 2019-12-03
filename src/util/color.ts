@@ -96,9 +96,12 @@ export function hslToRgb(hsl: HSL) {
 }
 
 export class Color {
-  static white() {
-    return
-  }
+  public static black: Color = new Color(new RGB(0, 0, 0))
+  public static white: Color = new Color(new RGB(255, 255, 255))
+  public static red: Color = new Color(new RGB(255, 0, 0))
+  public static green: Color = new Color(new RGB(0, 255, 0))
+  public static blue: Color = new Color(new RGB(0, 0, 255))
+
   private rgb: RGB
   private hsl: HSL
 
