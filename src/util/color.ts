@@ -95,6 +95,9 @@ export function hslToRgb(hsl: HSL) {
   return new RGB(r * 255, g * 255, b * 255)
 }
 
+export type RGBChannel = 'r' | 'g' | 'b'
+export type HSLChannel = 'h' | 's' | 'l'
+
 export class Color {
   public static black: Color = new Color(new RGB(0, 0, 0))
   public static white: Color = new Color(new RGB(255, 255, 255))
@@ -102,7 +105,7 @@ export class Color {
   public static green: Color = new Color(new RGB(0, 255, 0))
   public static blue: Color = new Color(new RGB(0, 0, 255))
 
-  private rgb: RGB
+  rgb: RGB
   private hsl: HSL
 
   constructor(value: RGB | HSL) {
@@ -111,6 +114,7 @@ export class Color {
     }
     if (value instanceof HSL) {
       this.hsl = value
+      this.rgb = hslToRgb(value)
     }
   }
 
@@ -123,16 +127,5 @@ export class Color {
     }
     this.hsl = rgbToHsl(this.rgb)
     return this.hsl
-  }
-
-  asRGB(): RGB {
-    if (this.rgb) {
-      return this.rgb
-    }
-    if (this.hsl === null) {
-      return null
-    }
-    this.rgb = hslToRgb(this.hsl)
-    return this.rgb
   }
 }

@@ -41,10 +41,10 @@ class ColorMatrix {
   }
 
   calculateCell(posX: number, posY: number): Color {
-    const tl = this.topLeft.asRGB()
-    const tr = this.topRight.asRGB()
-    const bl = this.bottomLeft.asRGB()
-    const br = this.bottomRight.asRGB()
+    const tl = this.topLeft.rgb
+    const tr = this.topRight.rgb
+    const bl = this.bottomLeft.rgb
+    const br = this.bottomRight.rgb
     console.log(
       `Square values: tl: ${JSON.stringify(tl)}, tr: ${JSON.stringify(tr)}, bl: ${JSON.stringify(
         bl,
@@ -134,7 +134,7 @@ const ColorPanel = (props: ColorPanelProps) => {
     console.log(JSON.stringify(matrix))
     for (let i = 0; i <= numDown; i += 1) {
       for (let j = 0; j <= numAcross; j += 1) {
-        ctx.fillStyle = matrix.current[i][j].asRGB().toCssString()
+        ctx.fillStyle = matrix.current[i][j].rgb.toCssString()
         ctx.fillRect(boxWidth * j, boxHeight * i, boxWidth, boxHeight)
       }
     }

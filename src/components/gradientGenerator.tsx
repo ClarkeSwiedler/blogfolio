@@ -3,6 +3,7 @@ import {styled} from '../styles/theme'
 import ColorPanel from '../components/colorPanel'
 import {Color, RGB} from '../util/color'
 import ColorSlider from './colorSlider'
+import ColorPicker from './colorPicker'
 
 const CanvasHost = styled.div`
   width: 100%;
@@ -10,6 +11,10 @@ const CanvasHost = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  canvas {
+    display: block;
+  }
 `
 
 const GradientGenerator = () => {
@@ -40,7 +45,10 @@ const GradientGenerator = () => {
         bottomLeft={bottomLeft}
         bottomRight={bottomRight}
       />
-      <ColorSlider channel="r" value={channelValue} onChanged={handleChannelUpdate} />
+      <ColorPicker color={topLeft} onColorChanged={color => setTopLeft(color)} />
+      <ColorPicker color={topRight} onColorChanged={color => setTopRight(color)} />
+      <ColorPicker color={bottomLeft} onColorChanged={color => setBottomLeft(color)} />
+      <ColorPicker color={bottomRight} onColorChanged={color => setBottomRight(color)} />
     </CanvasHost>
   )
 }

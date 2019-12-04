@@ -1,10 +1,14 @@
 import React, {ChangeEvent} from 'react'
 import {styled} from '../styles/theme'
+import {type} from 'os'
+import {RGBChannel} from '../util/color'
 
-const StyledSlider = styled.input``
+const StyledSlider = styled.input`
+  display: block;
+`
 
 interface ColorSliderProps {
-  channel: 'r' | 'g' | 'b'
+  channel: RGBChannel
   value: number
   onChanged: (value: number) => void
 }
