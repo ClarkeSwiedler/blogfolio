@@ -3,7 +3,10 @@ import {styled} from '../styles/theme'
 import {Color, RGBChannel, RGB} from '../util/color'
 import ColorSlider from './colorSlider'
 
-const StyledColorPicker = styled.div``
+const StyledColorPicker = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 
 interface ColorPickerProps {
   color: Color
